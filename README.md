@@ -4,7 +4,7 @@ This program reads the provided JSON files and generates **Diagnostic**, **Progr
 
 ---
 
-## Prerequisites
+### Prerequisites
 
 Make sure you have the following installed:
 - PHP >= 8.1
