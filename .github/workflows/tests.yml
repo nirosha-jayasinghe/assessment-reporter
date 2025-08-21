@@ -31,9 +31,18 @@ jobs:
 
       - name: Prepare app environment
         run: |
-          cp -n .env.example .env || true
+          # portable equivalent of: cp -n .env.example .env
+          if [ ! -f .env ]; then cp .env.example .env; fi
+
+          # Force CI-safe drivers (no DB needed)
+          {
+            echo "APP_ENV=testing"
+            echo "CACHE_STORE=file"
+            echo "SESSION_DRIVER=array"
+            echo "QUEUE_CONNECTION=sync"
+          } >> .env
+
           php artisan key:generate --ansi
-          php artisan optimize:clear
 
       - name: Ensure data exists for tests
         run: |
